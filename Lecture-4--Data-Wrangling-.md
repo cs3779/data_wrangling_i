@@ -3,7 +3,7 @@ Lecture 4 (Data Wrangling)
 CJ Snyder
 9/17/2019
 
-## Loading in the dataset
+## Reading in litters dataset
 
 ``` r
 ## reads in litters dataset
@@ -94,6 +94,14 @@ mlb11_data =
     path = "./data/mlb11.xlsx", 
     n_max=20
   )
+
+mlb11_data_subset = 
+  read_excel(
+    path = "./data/mlb11.xlsx", 
+    range = "A1:D7"
+  )
+
+write_csv(mlb11_data_subset, path = "./data/mlb_subset.csv")
 ```
 
 ## Read in SAS
@@ -101,5 +109,5 @@ mlb11_data =
 ``` r
 pulse_data = haven::read_sas("./data/public_pulse_data.sas7bdat")
 
-## haven::read_sas -> taking the function read_sas out of 'haven' library
+## haven::read_sas -> taking the function 'read_sas' out of 'haven' library without loading the entire library
 ```
