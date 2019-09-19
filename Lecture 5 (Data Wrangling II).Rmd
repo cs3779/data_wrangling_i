@@ -1,5 +1,5 @@
 ---
-title: "Lecture 5 (Data Wrangling II)"
+title: "Lecture 5 (Data Wrangling II) - Data Manipulation"
 author: "CJ Snyder"
 date: "9/19/2019"
 output: html_document
@@ -8,6 +8,7 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
+library(readxl)
 ```
 
 # Uploading Datasets: litters & pups
@@ -22,4 +23,40 @@ pups_data = read_csv("./data/FAS_pups.csv",
   col_types = "ciiiii")
 pups_data = janitor::clean_names(pups_data)
 ```
+
+# Beginning Data Manipulation
+## _select_ Function
+```{r}
+select(litters_data, group, litter_number, gd0_weight, pups_born_alive) #Specifies variables to keep
+
+select(litters_data, group, litter_number, gd0_weight, starts_with("pups")) #'starts_with' allows you to select all variables that starts with phrase/word
+
+select(litters_data, group:gd_of_birth) #Indicates RANGE of variables to keep (inclusive)
+
+select (litters_data, litter_number, group, everything()) #'everything()' keeps all variables
+
+# The way in which you select variables ALSO REORDERS THEM!!
+
+select(litters_data, -pups_survive) #Removes specified column 'pups_survive'
+
+
+select(litters_data, GROUP = group, LiTtEr_NuMbEr = litter_number) #Renames variables, but only as part of the select function
+
+rename(litters_data, GROUP = group, LiTtEr_NuMbEr = litter_number) #Renames variables
+
+# The litters_data is NOT modified until it is saved into a new data frame
+litters_selected = select(litters_data, group:gd_of_birth)
+```
+
+### Example
+```{r}
+select(pups_data, litter_number:pd_ears)
+```
+
+## _filter_ Function 
+```{r}
+
+```
+
+
 
