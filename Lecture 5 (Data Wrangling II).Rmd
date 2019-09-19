@@ -55,8 +55,34 @@ select(pups_data, litter_number:pd_ears)
 
 ## _filter_ Function 
 ```{r}
+filter(litters_data, group == 'Mod8')
 
+filter(litters_data, gd_of_birth == 20)
+
+filter(litters_data, gd_of_birth < 20)
+
+filter(litters_data, gd_of_birth != 20)
+
+filter(litters_data, pups_born_alive < 6, group =="Con7")
+
+filter(litters_data, group == "Mod8" | group == "Con7") # OR statement
+
+filter(litters_data, group %in% c("Mod8", "Con7")) # Equivalent to OR statement
+
+# Does not have good range statements, will need to create the range ends with two statements
+
+drop_na(litters_data) # Automatically removes ALL observations with missing data
+
+drop_na(litters_data, gd0_weight) # Removes missing observations with missing 'gd0_weight' value
 ```
+
+### Example 
+```{r}
+filter(pups_data, sex == 1)
+
+filter(pups_data, sex ==2, pd_walk < 11)
+```
+
 
 
 
