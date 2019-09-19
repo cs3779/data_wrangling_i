@@ -611,6 +611,54 @@ drop_na(litters_data) # Automatically removes ALL observations with missing data
 ## # ... with 124 more rows</code></pre>
 </div>
 </div>
+<div id="mutate-function" class="section level2">
+<h2><em>mutate</em> Function</h2>
+<pre class="r"><code>mutate(litters_data, 
+  wt_gain = gd18_weight - gd0_weight,
+  group = str_to_lower(group),
+  group = str_to_upper(group)
+  )</code></pre>
+<pre><code>## # A tibble: 49 x 9
+##   group litter_number gd0_weight gd18_weight gd_of_birth pups_born_alive
+##   &lt;chr&gt; &lt;chr&gt;              &lt;dbl&gt;       &lt;dbl&gt;       &lt;int&gt;           &lt;int&gt;
+## 1 CON7  #85                 19.7        34.7          20               3
+## 2 CON7  #1/2/95/2           27          42            19               8
+## 3 CON7  #5/5/3/83/3-3       26          41.4          19               6
+## # ... with 46 more rows, and 3 more variables: pups_dead_birth &lt;int&gt;,
+## #   pups_survive &lt;int&gt;, wt_gain &lt;dbl&gt;</code></pre>
+<pre class="r"><code># Can mutate multiple variables at the same time</code></pre>
+</div>
+<div id="arrange-function" class="section level2">
+<h2><em>arrange</em> Function</h2>
+<pre class="r"><code>arrange(litters_data, pups_born_alive)</code></pre>
+<pre><code>## # A tibble: 49 x 8
+##   group litter_number gd0_weight gd18_weight gd_of_birth pups_born_alive
+##   &lt;chr&gt; &lt;chr&gt;              &lt;dbl&gt;       &lt;dbl&gt;       &lt;int&gt;           &lt;int&gt;
+## 1 Con7  #85                 19.7        34.7          20               3
+## 2 Low7  #111                25.5        44.6          20               3
+## 3 Low8  #4/84               21.8        35.2          20               4
+## # ... with 46 more rows, and 2 more variables: pups_dead_birth &lt;int&gt;,
+## #   pups_survive &lt;int&gt;</code></pre>
+<pre class="r"><code>arrange(litters_data, desc(pups_born_alive))</code></pre>
+<pre><code>## # A tibble: 49 x 8
+##   group litter_number gd0_weight gd18_weight gd_of_birth pups_born_alive
+##   &lt;chr&gt; &lt;chr&gt;              &lt;dbl&gt;       &lt;dbl&gt;       &lt;int&gt;           &lt;int&gt;
+## 1 Low7  #102                22.6        43.3          20              11
+## 2 Mod8  #5/93               NA          41.1          20              11
+## 3 Con7  #1/5/3/83/3-~       NA          NA            20               9
+## # ... with 46 more rows, and 2 more variables: pups_dead_birth &lt;int&gt;,
+## #   pups_survive &lt;int&gt;</code></pre>
+<pre class="r"><code>arrange(litters_data, pups_born_alive, gd0_weight)</code></pre>
+<pre><code>## # A tibble: 49 x 8
+##   group litter_number gd0_weight gd18_weight gd_of_birth pups_born_alive
+##   &lt;chr&gt; &lt;chr&gt;              &lt;dbl&gt;       &lt;dbl&gt;       &lt;int&gt;           &lt;int&gt;
+## 1 Con7  #85                 19.7        34.7          20               3
+## 2 Low7  #111                25.5        44.6          20               3
+## 3 Low8  #4/84               21.8        35.2          20               4
+## # ... with 46 more rows, and 2 more variables: pups_dead_birth &lt;int&gt;,
+## #   pups_survive &lt;int&gt;</code></pre>
+<pre class="r"><code># Arranges in order of variable, first pups born alive, then initial weight</code></pre>
+</div>
 </div>
 
 

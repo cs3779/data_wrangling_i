@@ -83,6 +83,24 @@ filter(pups_data, sex == 1)
 filter(pups_data, sex ==2, pd_walk < 11)
 ```
 
+## _mutate_ Function
+```{r}
+mutate(litters_data, 
+  wt_gain = gd18_weight - gd0_weight,
+  group = str_to_lower(group),
+  group = str_to_upper(group)
+  )
+# Can mutate multiple variables at the same time
+```
 
+## _arrange_ Function
+```{r}
+arrange(litters_data, pups_born_alive)
+
+arrange(litters_data, desc(pups_born_alive))
+
+arrange(litters_data, pups_born_alive, gd0_weight)
+# Arranges in order of variable, first pups born alive, then initial weight
+```
 
 
