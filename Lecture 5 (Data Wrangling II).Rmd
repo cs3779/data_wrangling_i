@@ -103,4 +103,26 @@ arrange(litters_data, pups_born_alive, gd0_weight)
 # Arranges in order of variable, first pups born alive, then initial weight
 ```
 
+# Pulling Everything Together...through _piping_!!
+```{r}
+litters_data = 
+  read_csv("./data/FAS_litters.csv") %>% 
+  janitor::clean_names() %>% 
+  select(-pups_survive) %>% 
+  mutate(
+    wt_gain = gd18_weight - gd0_weight,
+    group = str_to_lower(group)) %>% 
+  drop_na(gd0_weight)
+
+#Ctrl+Shift+M keybind for %>%
+```
+
+
+```{r, eval = FALSE}
+litters_data %>%  view()
+
+litters_data %>% pull(gd0_weight) %>% mean 
+```
+
+
 

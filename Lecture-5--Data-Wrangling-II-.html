@@ -660,6 +660,32 @@ drop_na(litters_data) # Automatically removes ALL observations with missing data
 <pre class="r"><code># Arranges in order of variable, first pups born alive, then initial weight</code></pre>
 </div>
 </div>
+<div id="pulling-everything-togetherthrough-piping" class="section level1">
+<h1>Pulling Everything Together…through <em>piping</em>!!</h1>
+<pre class="r"><code>litters_data = 
+  read_csv(&quot;./data/FAS_litters.csv&quot;) %&gt;% 
+  janitor::clean_names() %&gt;% 
+  select(-pups_survive) %&gt;% 
+  mutate(
+    wt_gain = gd18_weight - gd0_weight,
+    group = str_to_lower(group)) %&gt;% 
+  drop_na(gd0_weight)</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   Group = col_character(),
+##   `Litter Number` = col_character(),
+##   `GD0 weight` = col_double(),
+##   `GD18 weight` = col_double(),
+##   `GD of Birth` = col_double(),
+##   `Pups born alive` = col_double(),
+##   `Pups dead @ birth` = col_double(),
+##   `Pups survive` = col_double()
+## )</code></pre>
+<pre class="r"><code>#Ctrl+Shift+M keybind for %&gt;%</code></pre>
+<pre class="r"><code>litters_data %&gt;%  view()
+
+litters_data %&gt;% pull(gd0_weight) %&gt;% mean </code></pre>
+</div>
 
 
 
