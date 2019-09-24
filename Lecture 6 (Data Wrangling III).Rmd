@@ -8,4 +8,79 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
+
+install.packages("tidyr")
+
+options(tibble.print_min = 5)
 ```
+
+# **wide** to **long** example using _pulse_data_ Dataset
+```{r}
+pulse_data = haven::read_sas("./data/public_pulse_data.sas7bdat") %>%
+  janitor::clean_names()
+pulse_data
+
+pulse_tidy_data = 
+  pivot_longer(
+    pulse_data,
+    bdi_score_bl:bdi_score_12m,
+    names_to = "visit",
+    values_to = "bdi"
+  )
+# Goes from wide to long data for each observation
+pulse_tidy_data
+
+
+# Alternative way to generate above dataset
+pulse_data_alt = haven::read_sas("./data/public_pulse_data.sas7bdat") %>%
+  janitor::clean_names() %>% 
+  pivot_longer(
+    bdi_score_bl:bdi_score_12m,
+    names_to = "visit",
+    names_prefix = "bdi_score_",
+    values_to = "bdi"
+  ) %>% 
+    mutate(visit = recode(visit, "bl"="00m"))
+
+
+pulse_tidy_data=
+  pivot_longer(
+    pulse_data,
+    bdi_score_bl:bdi_score_12m,
+    names_to = "visit",
+    names_prefix = "bdi_score_",
+    values_to = "bdi"
+  )
+# 'names_prefix' removes given text 
+pulse_tidy_data
+```
+
+# separate in litters
+
+```{r}
+litters_data = read_csv("./data/FAS_litters.csv") %>% 
+  janitor::clean_names() %>% 
+  separate(col = group, into = c("dose", "day_of_tx"), sep = 3)
+
+litters_data
+```
+
+# _pivot_wider_ Function
+```{r}
+analysis_result = tibble(
+  group = c("treatment", "treatment", "placebo", "placebo"),
+  time = c("pre", "post", "pre", "post"),
+  mean = c(4, 8, 3.5, 4)
+)
+
+analysis_result
+
+pivot_wider(
+  analysis_result,
+  names_from = time,
+  values_from = mean
+)
+
+
+```
+
